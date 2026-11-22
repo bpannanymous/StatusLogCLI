@@ -12,7 +12,7 @@ No additional installations are necessary other than the libraries at the top of
 
 USE
 =================================================================================
-'''python
+'''
 python StatusLog.py
 '''
 
@@ -22,7 +22,7 @@ Compatibility Note
 =================================================================================
 This code is specifically aimed to be used for the ThinkPad T14 Gen 5 AMD but can EASILY be modified to be applicable to almost any other laptop running linux (not sure about other OS). All that needs to be changed is the 4 variables in StatusLog.py as follows:
 
-'''python
+'''
 cpu_temp_path=Path("/sys/class/hwmon/hwmon5/temp1_input") #cpu temperature file
 gpu_temp_path=Path("/sys/class/hwmon/hwmon6/temp1_input") #gpu temperature file
 fan_speed_path=Path("/sys/class/hwmon/hwmon5/fan1_input") #fan speed file
@@ -31,35 +31,35 @@ power_path=Path("/sys/class/hwmon/hwmon3/power1_input") #power consumption file
 
 These variables correspond to the paths to the modules of the properties in the hwmon path. To make these fit your setup, you must first understand which of the hwmon paths corresponds to what sensor. This can be done using the following commands:
 
-'''bash
+'''
 cd /sys/class/hwmon/ && ls
 '''
 
 This will change the directory to the hwmon directory and list all hwmon modules available. You will then iteratively, for however many there are, run the following:
 
-'''bash
+'''
 cat hwmon0/name
 '''
 
-'''bash
+'''
 cat hwmon1/name
 '''
 
 You will continue to do this so you can see the name of all of these modules. You will then open another terminal window beside it and run the following command:
 
-'''bash
+'''
 sensors
 '''
 
 You will see your sensor information, but also the names of the hwmon modules they are coming from. You will need to link these names to the name of one of the hwmon names that you filed through in the first terminal window. You will then, for example with cpu temperature, look into that module, say hwmon4, then list all of the files in there using:
 
-'''bash
+'''
 ls
 '''
 
 There should be a temp1_input. This does not mean that it is the cpu temperature, that will be up to your own discretion on how to determine that, but it is most likely that in the sensors window, the order that they are listed in under a respective hwmon feature is the same order they are numbered in under the module files. This is the path you need to put into the section I stated you much change above. To see the full path, run the following then add the actual sensor name (temp1_input) at the end:
 
-'''bash
+'''
 pwd
 '''
 
